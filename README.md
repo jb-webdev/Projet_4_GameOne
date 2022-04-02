@@ -11,7 +11,7 @@ _Projet 4 - GameOne - Mars 2022_
 * Commenter le code.
 * Tester manuellement les fonctionnalités, les entrées de formulaire
 * Tester manuellement l'affichage responsive.
-
+* Utiliser que du CSS personnalisé et du JavaScript pur, sans jQuery, Bootstrap ou autre librairie.
 
 ## Compétences évaluées  
 
