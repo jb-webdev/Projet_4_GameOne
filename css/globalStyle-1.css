@@ -1,6 +1,6 @@
-
 * {
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
@@ -9,8 +9,13 @@
 
 body {
     margin: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     /*background-image: url("background.png");*/
     background-color: var(--color-white);
     font-family: var(--font-default);
@@ -51,6 +56,8 @@ height: auto;
     font-family: Roboto, sans-serif;
 
     /*animation button*/
+    -webkit-transition: all 0.8s ease-out;
+    -o-transition: all 0.8s ease-out;
     transition: all 0.8s ease-out;
 }
 .topnav a:hover {
@@ -120,6 +127,8 @@ main {
 .modal-btn {
     font-size: 145%;
     background: var(--bg-red-secondary);
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     margin: auto;
     padding: 2em;
@@ -136,3 +145,4 @@ main {
     padding: 10px;
     font-family: var(--font-slab);
 }
+

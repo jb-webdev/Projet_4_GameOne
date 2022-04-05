@@ -36,7 +36,7 @@ function closeButton() {
 // Je crer une fonction pour fermer la modale qui change le paramitre de display en none.
 function closeMessageValidationModal() {
 
-  const modalMessageValidation = document.getElementById("wrapper-modal-confirmation");
+  const modalMessageValidation = document.querySelector(".wrapper-modal-confirmation");
   modalMessageValidation.style.display = "none";
 }
 // Etape deux on ecoute les évenements des formulaires pour validé les entrées
