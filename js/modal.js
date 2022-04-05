@@ -1,3 +1,5 @@
+// Script fourni par OC pour le début du projet 
+
 function editNav() {
   var x = document.getElementById("myTopnav");
   if (x.className === "topnav") {
@@ -20,100 +22,46 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
+// ============ Mon Script ===============
+//========================================
 
-/* ETAP 1 ON FERME LA MODAL AU CLICK */
+// FERMETURE DE LA MODAL INSCRIPTION
+//On recupere l'element du DOM et ou ecoute l'evenement du click sur (x)
 
-/* on recupèrer notre élement du DOM  par la classe avec querySelector*/
-const modalClose = document.querySelector(".close");
-/*  on creer notre fonction 
-    on passe display none au click sur le span pour faire disparaître notre modal de l'affichage
-*/
-function closeButton() {
-  modalbg.style.display = "none";
+const modalInscriptionClose = document.querySelector(".bground");
+const BtnModalClose = document.querySelector(".close");
+
+function closeModalInscription(){
+  modalInscriptionClose.style.display = "none";
+}
+BtnModalClose.addEventListener("click", closeModalInscription);
+
+// FERMETURE DE LA MODAL MESSAGE VALIDATION
+//On recupere l'element du DOM et ou ecoute l'evenement du click sur (x) si on click on lance la fonction closeMessageValidation()
+const modalMsgValidation = document.querySelector(".wrapper-modal-confirmation");
+const btnCloseMsgValidation = document.querySelector(".closeMsgValidation")
+
+function closeMessageValidation(){
+  modalMsgValidation.style.display = 'none';
+}
+btnCloseMsgValidation.addEventListener("click", closeMessageValidation);
+
+
+
+// ========= MODAL MSG VALIDATION =========
+// ========================================
+
+const messageConfirmation = document.querySelector(".wrapper-modal-confirmation");
+
+// si on change false a true on affiche le message de validation
+const etatMessageValidation = true;
+
+function afficherMessageValidation (etat){
+  if (etat){
+    messageConfirmation.style.display = "block";
+  } else {
+    messageConfirmation.style.display = "none";
+  }
 }
 
-// ON FERME LA MODAL DE CONFIRMATION D'ENVOIE A L'UTILISATEUR
-// Je crer une fonction pour fermer la modale qui change le paramitre de display en none.
-function closeMessageValidationModal() {
-
-  const modalMessageValidation = document.querySelector(".wrapper-modal-confirmation");
-  modalMessageValidation.style.display = "none";
-}
-// Etape deux on ecoute les évenements des formulaires pour validé les entrées
-/* ====== Input Prenom ====== */
-/* ====== on controle qu'il contient aux minimum 2 caractère */
-document.getElementById("first").addEventListener("input", function() {
-
-  const inputTxtPrenom = document.getElementById('first');
-  const paragrapheError = document.getElementById("erreurPrenom");
-  const ErroMessagePrenom = "Doit contennir deux caractère minimum";
-
-  if (this.value.length <2){
-    paragrapheError.innerHTML = ErroMessagePrenom;
-    inputTxtPrenom.setCustomValidity(ErroMessagePrenom);
-  } else {
-    paragrapheError.innerHTML = "";
-  }
-})
-
-/* ====== Input nom ====== */
-/* ====== on controle qu'il contient aux minimum 2 caractère */
-document.getElementById("last").addEventListener("input", function() {
-
-  const inputTxtNom = document.getElementById('last');
-  const errorNom = document.getElementById("erreurNom");
-  const ErroMessageNom = "Veuillez entrer 2 caractères ou plus pour le champ du nom";
-
-  if (this.value.length <2){
-    errorNom.innerHTML = ErroMessageNom;
-    inputTxtNom.setCustomValidity(ErroMessageNom);
-  } else {
-    errorNom.innerHTML = "";
-  }
-})
-
-
-
-
-
-
-
-
-
-// SCRIPT essai pour le moment 
-/*ETAP 2 ON VALID LE FORMULAIRE */
-
-document.getElementById("formValid").addEventListener("submit", function(e){
-  e.preventDefault();
-  /* je declare une variable erreur */
-  let erreur;
-  /* je recupere mes elements un par un */
-  let prenom = document.getElementById("first").value;
-  let nom = document.getElementById("last").value;
-  let email = document.getElementById("email").value;
-  let birthdate = document.getElementById("birthdate").value;
-  let quantity = document.getElementById("quantity").value;
-
-  if (prenom.length <= 2){
-    erreur ="Au moins 2 caractère minimum";
-    document.getElementById("erreurPrenom").innerHTML = erreur;
-    return false;
-    }
-  if (nom.length <= 2){
-    erreur ="Au moins 2 caractère minimum";
-    document.getElementById("erreurNom").innerHTML = erreur;
-    return false;
-    } 
-  if (quantity.length == " ") {
-    erreur ="veuillez rentre une valeur merci !";
-    document.getElementById("erreurQuantity").innerHTML = erreur;
-    return false;
-  }
-    
-    
-    else {
-    alert ('Merci pour votre inscription le Formulaire est envoyé !')
-    closeButton();
-  }
-
-})
+afficherMessageValidation(etatMessageValidation);

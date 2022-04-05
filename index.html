@@ -65,7 +65,7 @@
       <div class="bground">
         <div class="content">
           <!-- Correction pour la fermeture de la modal avec une fonction clodeButton() Ligne 58-->
-          <span class="close" onclick="closeButton()"></span>
+          <span class="close"></span>
           <div class="modal-body">
 
             <form id="formValid" name="reserve" action="index.html" method="get" onsubmit="return validate();" >
@@ -155,12 +155,13 @@
       <!-- FIN FORMULAIRE inscription -->
 
       <!-- Modal Message Envoyer -->
-      <div class="wrapper-modal-confirmation">
-        <div class="wrapper-modal-confirmation-content">
-            <span class="closeMsgValidation" onclick="closeMessageValidationModal()"></span>
-            <p id="modalConfirmation">Merci ! Votre réservation a été reçue.</p>
+
+        <div class="wrapper-modal-confirmation">
+          <div class="wrapper-modal-confirmation-content">
+              <span class="closeMsgValidation"></span>
+              <p id="modalConfirmation">Merci ! Votre réservation a été reçue.</p>
+          </div>
         </div>
-      </div>
      <!-- FIN Modal Message Envoyer -->
 
     </main>
@@ -173,7 +174,7 @@
     </footer>
 
     <!-- JavaScript -->
-    <script src="./js/modal.js"></script>
+    <script type="module" src="./js/modal.js"></script>
   </body>
 </html>
 
