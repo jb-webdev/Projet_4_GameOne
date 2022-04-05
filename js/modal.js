@@ -25,28 +25,26 @@ function launchModal() {
 // ============ Mon Script ===============
 //========================================
 
-// FERMETURE DE LA MODAL INSCRIPTION
-//On recupere l'element du DOM et ou ecoute l'evenement du click sur (x)
+// Je ceer une function réutilisable pour la fermeture de mes modals.
 
-const modalInscriptionClose = document.querySelector(".bground");
-const BtnModalClose = document.querySelector(".close");
-
-function closeModalInscription(){
-  modalInscriptionClose.style.display = "none";
+function closeModal(m, b){
+  const recModal = document.querySelector(m); 
+  const btnListener = document.querySelector(b);
+    function closeModal(){ 
+      recModal.style.display = 'none';
+    }
+  btnListener.addEventListener("click", closeModal);    
 }
-BtnModalClose.addEventListener("click", closeModalInscription);
+// je declare des variable avec les paramêtres désiré.
+// PARAMS Modal Inscription
+const modalInscription = ".bground";
+const BtnInscriptionClose = ".close";
+// PARAMS Modal message validation
+const messageValidation = ".wrapper-modal-confirmation";
+const btnMessageValidation = ".closeMsgValidation";
 
-// FERMETURE DE LA MODAL MESSAGE VALIDATION
-//On recupere l'element du DOM et ou ecoute l'evenement du click sur (x) si on click on lance la fonction closeMessageValidation()
-const modalMsgValidation = document.querySelector(".wrapper-modal-confirmation");
-const btnCloseMsgValidation = document.querySelector(".closeMsgValidation")
-
-function closeMessageValidation(){
-  modalMsgValidation.style.display = 'none';
-}
-btnCloseMsgValidation.addEventListener("click", closeMessageValidation);
-
-
+closeModal(modalInscription, BtnInscriptionClose); // FERMETURE DE LA MODAL INSCRIPTION
+closeModal(messageValidation, btnMessageValidation); // FERMETURE DE LA MODAL MESSAGE VALIDATION
 
 // ========= MODAL MSG VALIDATION =========
 // ========================================
@@ -54,7 +52,8 @@ btnCloseMsgValidation.addEventListener("click", closeMessageValidation);
 const messageConfirmation = document.querySelector(".wrapper-modal-confirmation");
 
 // si on change false a true on affiche le message de validation
-const etatMessageValidation = true;
+
+const etatMessageValidation = true; // Je creer un etat d'affichage.
 
 function afficherMessageValidation (etat){
   if (etat){
