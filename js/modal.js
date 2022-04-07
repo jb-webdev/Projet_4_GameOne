@@ -108,11 +108,12 @@ function validEmailFonction (a, spanErr,regexEmail) {
   //a = inputId  & spanError = span message erreur a afficher si besoin
   document.getElementById(a).addEventListener("input", function(e) {
     const regex = regexEmail;
+    
     if (regex.test(e.target.value)) {
       getCodeValidation(spanErr).innerText = "";
       disableSubmit(false);
     } else {
-      getCodeValidation(spanErr).innerText = "Veuillez entrer ou moins 2 caractères !";
+      getCodeValidation(spanErr).innerText = "Votre email est invalid";
       disableSubmit(true);
     }
   });
