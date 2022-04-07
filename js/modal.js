@@ -30,8 +30,9 @@ function launchModal() {
 function closeModal(m, b){
   const recModal = document.querySelector(m); 
   const btnListener = document.querySelector(b);
-    function closeModal(){ 
-      recModal.style.display = 'none';
+    function closeModal(){
+        recModal.style.display = 'none';
+
     }
   btnListener.addEventListener("click", closeModal);    
 }
@@ -46,21 +47,79 @@ const btnMessageValidation = ".closeMsgValidation";
 closeModal(modalInscription, BtnInscriptionClose); // FERMETURE DE LA MODAL INSCRIPTION
 closeModal(messageValidation, btnMessageValidation); // FERMETURE DE LA MODAL MESSAGE VALIDATION
 
-// ========= MODAL MSG VALIDATION =========
-// ========================================
-
-const messageConfirmation = document.querySelector(".wrapper-modal-confirmation");
-
-// si on change false a true on affiche le message de validation
-
-const etatMessageValidation = true; // Je creer un etat d'affichage.
-
-function afficherMessageValidation (etat){
-  if (etat){
-    messageConfirmation.style.display = "block";
+// Je verifier les champs du formulaire
+// je bloc le bouton d'envoie du formulaire avec l'attribut submit.
+function disableSubmit(disabled) {
+  if (disabled) {
+    document.getElementById("btnSubmitValidation").setAttribute("disabled", true);
   } else {
-    messageConfirmation.style.display = "none";
+    document.getElementById("btnSubmitValidation").removeAttribute("disabled", false);
   }
 }
 
-afficherMessageValidation(etatMessageValidation);
+// Je créer une fonction pour le message d'erreur à afficher
+
+function getCodeValidation(recElement) {
+  // return document.getElementById("erreurPrenom");
+  return document.getElementById(recElement);
+}
+
+
+// 1 - ici on controle que les inputs prénom est nom contiennent au moins deux caractères.
+
+// Je creer mes variables pour verifier les valeurs entrer par l'utilisateur.
+// PRENOM à controller
+const inputPrenom = 'first';
+const spanErrorPrenom = "erreurPrenom";
+// NOM à controller
+const inputNom = "last";
+const spanErrorNom = "erreurNom";
+
+// Je créer une fonction pour contrôler les élements que je désire vérifier.
+function validNombreCaractère (a, spanErr) {
+  //a = inputId  & spanError = span message erreur a afficher si besoin
+  document.getElementById(a).addEventListener("input", function(e) {
+    const recElement = spanErr; // on rajoute l'id de lelement à modifier.
+    if (e.target.value.length > 1) {
+      getCodeValidation(recElement).innerText = "";
+      disableSubmit(false);
+    } else {
+      getCodeValidation(recElement).innerText = "Veuillez entrer ou moins 2 caractères !";
+      disableSubmit(true);
+    }
+  });
+}
+
+// enfin j'utilise mes fonctions quand j'en ai besoin.
+validNombreCaractère(inputPrenom, spanErrorPrenom);
+validNombreCaractère(inputNom, spanErrorNom);
+
+
+// 2 ici je contrôle que l'email et valide et conforme.
+
+// email à contrôler
+const inputEmail = "email";
+const spanErrorEmail = "erreurEmail";
+
+// je créer une variable pour mon regex
+const regexEmail =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+function validEmailFonction (a, spanErr,regexEmail) {
+  //a = inputId  & spanError = span message erreur a afficher si besoin
+  document.getElementById(a).addEventListener("input", function(e) {
+    const regex = regexEmail;
+    if (regex.test(e.target.value)) {
+      getCodeValidation(spanErr).innerText = "";
+      disableSubmit(false);
+    } else {
+      getCodeValidation(spanErr).innerText = "Veuillez entrer ou moins 2 caractères !";
+      disableSubmit(true);
+    }
+  });
+}
+
+// j'utilise la fonction pour vérifier l'email.
+validEmailFonction(inputEmail, spanErrorEmail, regexEmail);
+
+
+

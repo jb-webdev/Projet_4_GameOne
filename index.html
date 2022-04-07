@@ -68,7 +68,7 @@
           <span class="close"></span>
           <div class="modal-body">
 
-            <form id="formValid" name="reserve" action="index.html" method="get" onsubmit="return validate();" >
+            <form id="formValid" name="reserve" action="index.html" method="get" novalidate >
               
               <!-- 1- Je rejoute "required" pour être sur en html que l'input ne soit pas vide lors de l'envoi " -->
               <!-- Prénom -->
@@ -147,7 +147,7 @@
                 <br>
               </div>
               <!-- BTN Submit Formulaire -->
-              <input class="btn-submit button" type="submit" value="C'est parti" onclick="formCheck()" />
+              <input id="btnSubmitValidation" class="btn-submit button" type="submit" value="C'est parti" disabled=true/>
             </form>
           </div>
         </div>
