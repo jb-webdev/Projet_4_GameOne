@@ -68,15 +68,15 @@
           <span class="close"></span>
           <div class="modal-body">
 
-            <form id="formValid" name="reserve" action="index.html" method="get" novalidate >
-              
-              <!-- 1- Je rejoute "required" pour être sur en html que l'input ne soit pas vide lors de l'envoi " -->
+            <form id="formValid" name="reserve" action="index.html" method="get" >
               <!-- Prénom -->
               <div class="formData">
                 <label for="first" >Prénom</label><br>
                 <input type="text" id="first" name="prenom" class="text-control"/>
                 <!-- Message erreur -->
                 <span id="erreurPrenom" class="msg-input-error"></span><br>
+                <span id="essaiErreur" class="msg-input-error"></span><br>
+                
               </div>
               <!-- Nom -->
               <div class="formData">
@@ -91,24 +91,23 @@
                 <input  type="email" id="email" name="email" class="text-control" /><br>
                 <!-- Message erreur -->
                 <span id="erreurEmail" class="msg-input-error"></span><br>
-              </div>
-              <!-- Birthdate -->
+              </div><!-- Birthdate -->
               <div class="formData">
                 <label for="birthdate">Date de naissance</label><br>
                 <input type="date" id="birthdate" name="birthdate" class="text-control" /><br>
                 <!-- Message erreur A rajouter -->
-
+                <span id="erreurBirthdate" class="msg-input-error"></span><br>
               </div>
               <!-- Quantity -->
               <div class="formData">
                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input  type="number" id="quantity"  name="quantity"  min="0" max="99"  class="text-control" >
                 <!-- Message erreur -->
-
+             
               </div>
-
+            
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
-              
+                 
               <!-- TYPE RADIO => Location -->
               <div class="formData">
                 
@@ -146,8 +145,9 @@
                 </label>
                 <br>
               </div>
+             
               <!-- BTN Submit Formulaire -->
-              <input id="btnSubmitValidation" class="btn-submit button" type="submit" value="C'est parti" disabled=true/>
+              <input id="btnSubmitValidation" class="btn-submit button" type="submit" value="C'est parti"/>
             </form>
           </div>
         </div>

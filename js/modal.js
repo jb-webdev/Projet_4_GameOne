@@ -32,7 +32,6 @@ function closeModal(m, b){
   const btnListener = document.querySelector(b);
     function closeModal(){
         recModal.style.display = 'none';
-
     }
   btnListener.addEventListener("click", closeModal);    
 }
@@ -49,76 +48,126 @@ const btnMessageValidation = ".closeMsgValidation";
 closeModal(modalInscription, btnInscriptionClose); // FERMETURE DE LA MODAL INSCRIPTION
 closeModal(messageValidation, btnMessageValidation); // FERMETURE DE LA MODAL MESSAGE VALIDATION
 
-// Je verifier les champs du formulaire
-// je bloc le bouton d'envoie du formulaire avec l'attribut submit.
-function disableSubmit(disabled) {
-  if (disabled) {
-    document.getElementById("btnSubmitValidation").setAttribute("disabled", true);
-  } else {
-    document.getElementById("btnSubmitValidation").removeAttribute("disabled", false);
-  }
-}
+//=============================================
+// ======== Control du formulaire =============
+//=============================================
+// Variables utile pour le script 
+//==============================
 
-// Je créer une fonction pour le message d'erreur à afficher
-
-function getCodeValidation(recElement) {
-  // return document.getElementById("erreurPrenom");
-  return document.getElementById(recElement);
-}
-
-
-// 1 - ici on controle que les inputs prénom est nom contiennent au moins deux caractères.
-
-// Je creer mes variables pour verifier les valeurs entrer par l'utilisateur.
 // PRENOM à controller
 const inputPrenom = 'first';
 const spanErrorPrenom = "erreurPrenom";
 // NOM à controller
 const inputNom = "last";
 const spanErrorNom = "erreurNom";
+const regexUserName = /^[a-zA-Z-\s]{2,}$/; // on accepte les minuscule les majuscule le tiret et un espace
+// EMAIL à contrôler
+const inputEmail = "email";
+const spanErrorEmail = "erreurEmail";
+  // regex pour le contrôle de l'email.
+const regexEmail =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+// BIRTHDAY à controller
+const inputBirthdate = "birthdate";
+const spanErrorBirthdate = "erreurBirthdate";
+  // regex pour le controle de la date
+const regexDate = /^[0-9]{4}([\-/ \.])[0-9]{2}[\-/ \.][0-9]{2}$/;
 
-// Je créer une fonction pour contrôler les élements que je désire vérifier.
-function validNombreCaractère (a, spanErr) {
+// Fonction Util pour la vérification du formulaire
+//==================================================
+
+// FONCTION pour le message d'erreur à afficher
+function getCodeValidation(recElement) {
+  // exemple : return document.getElementById("erreurPrenom");
+  return document.getElementById(recElement);
+}
+
+// Fonction pour contrôler les élements que je désire vérifier.
+function validNombreCaractère (a, spanErr, regex) {
   //a = inputId  & spanError = span message erreur a afficher si besoin
   document.getElementById(a).addEventListener("input", function(e) {
     const recElement = spanErr; // on rajoute l'id de lelement à modifier.
-    if (e.target.value.length > 1) {
+    let regexTest = regex;
+    if (regexTest.test(e.target.value)) {
       getCodeValidation(recElement).innerText = "";
-      disableSubmit(false);
     } else {
       getCodeValidation(recElement).innerText = "Veuillez entrer ou moins 2 caractères !";
-      disableSubmit(true);
+      
     }
   });
 }
 
-// enfin j'utilise mes fonctions quand j'en ai besoin.
-validNombreCaractère(inputPrenom, spanErrorPrenom);
-validNombreCaractère(inputNom, spanErrorNom);
-
-
-// 2 ici je contrôle que l'email et valide et conforme.
-
-// email à contrôler
-const inputEmail = "email";
-const spanErrorEmail = "erreurEmail";
-
-// je créer une variable pour mon regex
-const regexEmail =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
+// Fonction pour la vérification du mail
 function validEmailFonction (a, spanErr,regexEmail) {
   //a = inputId  & spanError = span message erreur a afficher si besoin
   document.getElementById(a).addEventListener("input", function(e) {
     const regex = regexEmail;
     if (regex.test(e.target.value)) {
       getCodeValidation(spanErr).innerText = "";
-      disableSubmit(false);
     } else {
-      getCodeValidation(spanErr).innerText = "Votre email est invalid";
-      disableSubmit(true);
+      getCodeValidation(spanErr).innerText = "Votre email est invalide";
     }
   });
 }
 
-// j'utilise la fonction pour vérifier l'email.
-validEmailFonction(inputEmail, spanErrorEmail, regexEmail);
+// Fonction pour la vérification de la date de naissance
+function validBirthdateFunction(a, spanErr,regexEmail) {
+  //a = inputId  & spanError = span message erreur a afficher si besoin
+  document.getElementById(a).addEventListener("input", function(e) {
+    const regex = regexEmail;
+    if (regex.test(e.target.value)) {
+      getCodeValidation(spanErr).innerText = "";
+    } else {
+      getCodeValidation(spanErr).innerText = "Votre email est invalide";
+    }
+  });
+}
+
+
+
+
+
+
+
+
+
+// Je lance toutes les fonction dont j'ai besoin pour vérifier mon formulaire avant le click du btn envoyer
+//=========================================================================================================
+  // verification nom et prénom
+  validNombreCaractère(inputPrenom, spanErrorPrenom, regexUserName);
+  validNombreCaractère(inputNom, spanErrorNom, regexUserName);
+  // verification email
+  validEmailFonction(inputEmail, spanErrorEmail, regexEmail);
+  // verification date de naissance
+  validBirthdateFunction(inputBirthdate, spanErrorBirthdate, regexDate);
+
+// J'ecoute l'evenement submit et je relance les fonction a l'intèrieur.
+//======================================================================
+document.forms["formValid"].addEventListener("submit", function(e){
+    // REGEX
+    const regexForUsername = /^[a-zA-Z-\s]{2,}$/;
+    const regexForEmail =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const regexForDate = /^[0-9]{4}([\-/ \.])[0-9]{2}[\-/ \.][0-9]{2}$/;
+    // VARIABLE
+    let prenom = document.forms["reserve"]["first"]; 
+    let name = document.forms["reserve"]["last"];               
+    let email = document.forms["reserve"]["email"];
+    let birthdate = document.forms["reserve"]["birthdate"];
+    if (!regexForUsername.test(prenom.value)){
+      e.preventDefault();
+      return false
+    }if (!regexForUsername.test(name.value)){
+      e.preventDefault();
+      return false
+    }if (!regexForEmail.test(email.value)){
+      e.preventDefault();
+      return false
+    }if (!regexForDate.test(birthdate.value)){
+      e.preventDefault();
+      return false
+    }else {
+      return true
+    }
+})
+// ===========================================
+// ============== FIN DU SCRIPT ==============
+// ===========================================
