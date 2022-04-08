@@ -38,13 +38,15 @@ function closeModal(m, b){
 }
 // je declare des variable avec les paramêtres désiré.
 // PARAMS Modal Inscription
+
+
 const modalInscription = ".bground";
-const BtnInscriptionClose = ".close";
+const btnInscriptionClose = ".close";
 // PARAMS Modal message validation
 const messageValidation = ".wrapper-modal-confirmation";
 const btnMessageValidation = ".closeMsgValidation";
 
-closeModal(modalInscription, BtnInscriptionClose); // FERMETURE DE LA MODAL INSCRIPTION
+closeModal(modalInscription, btnInscriptionClose); // FERMETURE DE LA MODAL INSCRIPTION
 closeModal(messageValidation, btnMessageValidation); // FERMETURE DE LA MODAL MESSAGE VALIDATION
 
 // Je verifier les champs du formulaire
@@ -108,7 +110,6 @@ function validEmailFonction (a, spanErr,regexEmail) {
   //a = inputId  & spanError = span message erreur a afficher si besoin
   document.getElementById(a).addEventListener("input", function(e) {
     const regex = regexEmail;
-    
     if (regex.test(e.target.value)) {
       getCodeValidation(spanErr).innerText = "";
       disableSubmit(false);
@@ -121,6 +122,3 @@ function validEmailFonction (a, spanErr,regexEmail) {
 
 // j'utilise la fonction pour vérifier l'email.
 validEmailFonction(inputEmail, spanErrorEmail, regexEmail);
-
-
-
