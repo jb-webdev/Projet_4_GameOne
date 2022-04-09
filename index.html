@@ -1,258 +1,177 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <!-- Style CSS-->
-    <link rel="stylesheet" href="./css/variable.css" />
-    <link rel="stylesheet" href="./css/globalStyle-1.css" />
-    <link rel="stylesheet" href="./css/styleModal-3.css" />
-    <link rel="stylesheet" href="./css/inputRadio.css">
-    <link rel="stylesheet" href="./css/inputCheckBox.css">
-    <link rel="stylesheet" href="./css/herostyle-2.css" />
-    <!-- Font-awesome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- Fonts-family -->
-    <link href="https://fonts.googleapis.com/css?family=DM+Sans" rel="stylesheet" />
 
-    <title>Reservation</title>
-  </head>
-  <body>
-    
-    <!-- NavBar -->
-    <div class="topnav" id="myTopnav">
-      <div class="header-logo">
-        <img alt="logo" src="./img/Logo.png" />
-      </div>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- Style CSS-->
+  <link rel="stylesheet" href="./css/modal.css">
+  
+  <!-- Font-awesome-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Fonts-family -->
+  <link href="https://fonts.googleapis.com/css?family=DM+Sans" rel="stylesheet" />
 
-      <div class="main-navbar">
-        <a href="#" class="active" onclick="editNav()"><span>Accueil</span></a>
-        <a href="#" onclick="editNav()"><span>Détails de l'évènement</span></a>
-        <a href="#" onclick="editNav()"><span>À propos</span></a>
-        <a href="#" onclick="editNav()"><span>Contact</span></a>
-        <a href="#" onclick="editNav()"><span>Évènements passés</span></a>
-        <a href="javascript:void(0);" class="icon" onclick="editNav()">
-          <i class="fa fa-bars"></i>
-        </a>
-      </div>
+  <title>Reservation</title>
+</head>
 
+<body>
+
+  <!-- NavBar -->
+  <div class="topnav" id="myTopnav">
+    <div class="header-logo">
+      <img alt="logo" src="./img/Logo.png" />
     </div>
 
-    <!-- Main -->
-    <main>
-      <div class="hero-section">
-        <div class="hero-content">
-          <h1 class="hero-headline">
-            Marathon national<br>
-            de jeux vidéos
-          </h1>
-          <p class="hero-text">
-            Vous aimez jouer ? Notre prochain évènement gaming est ouvert
-            aux réservations... Places limitées !
-          </p>
-          <button class="btn-signup modal-btn">
-            je m'inscris
-          </button>
-        </div>
-        <div class="hero-img">
-          <img src="./img/bg_img.jpg" alt="image player" />
-        </div>
+    <div class="main-navbar">
+      <a href="#" class="active"><span>Accueil</span></a>
+      <a href="#" ><span>Détails de l'évènement</span></a>
+      <a href="#" ><span>À propos</span></a>
+      <a href="#" ><span>Contact</span></a>
+      <a href="#" ><span>Évènements passés</span></a>
+      <a href="javascript:void(0);" class="icon clickOpen">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <main>
+    <div class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-headline">
+          Marathon national<br>
+          de jeux vidéos
+        </h1>
+        <p class="hero-text">
+          Vous aimez jouer ? Notre prochain évènement gaming est ouvert
+          aux réservations... Places limitées !
+        </p>
         <button class="btn-signup modal-btn">
           je m'inscris
         </button>
       </div>
-      <!-- FORMULAIRE modal -->
-      <div class="bground">
-        <div class="content">
-          <!-- Correction pour la fermeture de la modal avec une fonction clodeButton() Ligne 58-->
-          <span class="close"></span>
-          <div class="modal-body">
+      <div class="hero-img">
+        <img src="./img/bg_img.jpg" alt="image player" />
+      </div>
+      <button class="btn-signup modal-btn">
+        je m'inscris
+      </button>
+    </div>
+    <!-- FORMULAIRE modal -->
+    <div class="bground">
+      <div class="content">
+        <!-- Correction pour la fermeture de la modal avec une fonction clodeButton() Ligne 58-->
+        <span class="close"></span>
+        <div class="modal-body">
 
-            <form id="formValid" name="reserve" action="index.html" method="get" >
-              <!-- Prénom -->
-              <div class="formData">
-                <label for="first" >Prénom</label><br>
-                <input type="text" id="first" name="prenom" class="text-control"/>
-                <!-- Message erreur -->
-                <span id="erreurPrenom" class="msg-input-error"></span><br>
-                <span id="essaiErreur" class="msg-input-error"></span><br>
-                
-              </div>
-              <!-- Nom -->
-              <div class="formData">
-                <label for="last" >Nom</label><br>
-                <input type="text" id="last" name="nom" class="text-control"/>
-                <!-- Message erreur -->
-                <span id="erreurNom" class="msg-input-error"></span><br>
-              </div>
-              <!-- Email -->
-              <div class="formData">
-                <label for="email">E-mail</label><br>
-                <input  type="email" id="email" name="email" class="text-control" /><br>
-                <!-- Message erreur -->
-                <span id="erreurEmail" class="msg-input-error"></span><br>
-              </div><!-- Birthdate -->
-              <div class="formData">
-                <label for="birthdate">Date de naissance</label><br>
-                <input type="date" id="birthdate" name="birthdate" class="text-control" /><br>
-                <!-- Message erreur A rajouter -->
-                <span id="erreurBirthdate" class="msg-input-error"></span><br>
-              </div>
-              <!-- Quantity -->
-              <div class="formData">
-                <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-                <input  type="number" id="quantity"  name="quantity"  min="0" max="99"  class="text-control" ><br>
-                <!-- Message erreur -->
-                <span id="erreurQuantity" class="msg-input-error"></span><br>
-             
-              </div>
-            
-              <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
-                 
-              <!-- TYPE RADIO => Location -->
-              <div class="formData">
-                
-                <input id="location1" type="radio" name="location" value="New York" checked/>
-                <label class="label-radio"for="location1">New York</label>
+          <form id="formValid" name="reserve" action="index.html" method="get">
+            <!-- Prénom -->
+            <div class="formData">
+              <label for="first">Prénom</label><br>
+              <input type="text" id="first" name="first" class="text-control" minlength="2" />
+              <!-- Message erreur -->
+              <span id="erreurPrenom" class="msg-input-error"></span><br>
+              <span id="essaiErreur" class="msg-input-error"></span><br>
 
-                <input id="location2" type="radio" name="location" value="San Francisco" />
-                <label class="label-radio"for="location2">San Francisco</label>
+            </div>
+            <!-- Nom -->
+            <div class="formData">
+              <label for="last">Nom</label><br>
+              <input type="text" id="last" name="last" class="text-control" />
+              <!-- Message erreur -->
+              <span id="erreurNom" class="msg-input-error"></span><br>
+            </div>
+            <!-- Email -->
+            <div class="formData">
+              <label for="email">E-mail</label><br>
+              <input type="email" id="email" name="email" class="text-control" /><br>
+              <!-- Message erreur -->
+              <span id="erreurEmail" class="msg-input-error"></span><br>
+            </div><!-- Birthdate -->
+            <div class="formData">
+              <label for="birthdate">Date de naissance</label><br>
+              <input type="date" id="birthdate" name="birthdate" class="text-control" /><br>
+              <!-- Message erreur A rajouter -->
+              <span id="erreurBirthdate" class="msg-input-error"></span><br>
+            </div>
+            <!-- Quantity -->
+            <div class="formData">
+              <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
+              <input type="number" id="quantity" name="quantity" min="0" max="99" class="text-control"><br>
+              <!-- Message erreur -->
+              <span id="erreurQuantity" class="msg-input-error"></span><br>
 
-                <input id="location3" type="radio" name="location" value="Seattle" />
-                <label class="label-radio"for="location3">Seattle</label>
+            </div>
 
-                <input id="location4" type="radio" name="location" value="Chicago" />
-                <label class="label-radio"for="location4">Chicago</label>
+            <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
 
-                <input id="location5" type="radio" name="location" value="Boston" />
-                <label class="label-radio"for="location5">Boston</label>
+            <!-- TYPE RADIO => Location -->
+            <div class="formData">
 
-                <input id="location6" type="radio" name="location" value="Portland" />
-                <label class="label-radio"for="location6">Portland</label>
+              <input id="location1" type="radio" name="location" value="New York" checked />
+              <label class="label-radio" for="location1">New York</label>
 
-              </div>
-              <!-- TYPE checkBoxe => CGU / Newslater -->
-              <div class="formData">
-                <input class="checkbox-input" type="checkbox" id="checkbox1" name="checkboxCgu" checked />
-                <label class="checkbox2-label" for="checkbox1" required>
-                  <span class="checkbox-icon"></span>
-                  J'ai lu et accepté les conditions d'utilisation.
-                </label>
-                <br>
-                <span id="spanErrorCheckCgu" class="msg-input-error"></span><br>
+              <input id="location2" type="radio" name="location" value="San Francisco" />
+              <label class="label-radio" for="location2">San Francisco</label>
 
-                <input class="checkbox-input" type="checkbox" id="checkbox2" name="checkbox2"/>
-                <label class="checkbox2-label" for="checkbox2">
-                  <span class="checkbox-icon"></span>
-                  Je Je souhaite être prévenu des prochains évènements.
-                </label>
-                <br>
-              </div>
-             
-              <!-- BTN Submit Formulaire -->
-              <input id="btnSubmitValidation" class="btn-submit button" type="submit" value="C'est parti"/>
-            </form>
-          </div>
+              <input id="location3" type="radio" name="location" value="Seattle" />
+              <label class="label-radio" for="location3">Seattle</label>
+
+              <input id="location4" type="radio" name="location" value="Chicago" />
+              <label class="label-radio" for="location4">Chicago</label>
+
+              <input id="location5" type="radio" name="location" value="Boston" />
+              <label class="label-radio" for="location5">Boston</label>
+
+              <input id="location6" type="radio" name="location" value="Portland" />
+              <label class="label-radio" for="location6">Portland</label>
+
+            </div>
+            <!-- TYPE checkBoxe => CGU / Newslater -->
+            <div class="formData">
+              <input class="checkbox-input" type="checkbox" id="checkbox1" name="checkboxCgu" checked />
+              <label class="checkbox2-label" for="checkbox1">
+                <span class="checkbox-icon"></span>
+                J'ai lu et accepté les conditions d'utilisation.
+              </label>
+              <br>
+              <span id="spanErrorCheckCgu" class="msg-input-error"></span><br>
+
+              <input class="checkbox-input" type="checkbox" id="checkbox2" name="checkbox2" />
+              <label class="checkbox2-label" for="checkbox2">
+                <span class="checkbox-icon"></span>
+                Je Je souhaite être prévenu des prochains évènements.
+              </label>
+              <br>
+            </div>
+
+            <!-- BTN Submit Formulaire -->
+            <input id="btnSubmitValidation" class="btn-submit button" type="submit" value="C'est parti" />
+          </form>
         </div>
       </div>
-      <!-- FIN FORMULAIRE inscription -->
+    </div>
+    <!-- FIN FORMULAIRE inscription -->
+    <!-- MODAL AFFICHAGE MESSAGE => FORMULAIRE ENVOYÉ !-->
+    <div class="wrapper-modal-confirmation">
+      <div class="wrapper-modal-confirmation-content">
+        <span class="closeMsgValidation"></span>
+        <p id="modalConfirmation">Merci ! Votre réservation a été reçue.</p>
+      </div>
+    </div>
+    <!-- FIN MODAL AFFICHAGE MESSAGE -->
+  </main>
 
-      <!-- Modal Message Envoyer -->
+  <!-- FOOTER -->
+  <footer>
+    <p class="copyrights">
+      Copyright 2014 - 2022, GameOn Inc.
+    </p>
+  </footer>
 
-        <div class="wrapper-modal-confirmation">
-          <div class="wrapper-modal-confirmation-content">
-              <span class="closeMsgValidation"></span>
-              <p id="modalConfirmation">Merci ! Votre réservation a été reçue.</p>
-          </div>
-        </div>
-     <!-- FIN Modal Message Envoyer -->
+  <!-- JavaScript -->
+  <script type="module" src="./js/modal.js"></script>
+</body>
 
-    </main>
-
-    <!-- FOOTER -->
-    <footer>
-      <p class="copyrights">
-        Copyright 2014 - 2022, GameOn Inc.
-      </p>
-    </footer>
-
-    <!-- JavaScript -->
-    <script type="module" src="./js/modal.js"></script>
-  </body>
 </html>
-
-<!-- =================SAUVEGARDE ==================================
-
-  <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
-
-              <div class="formData">
-
-
-                <input id="location1"
-                  class="checkbox-input"
-                  type="radio"
-                  name="location"
-                  value="New York"
-                />
-                <label class="checkbox-label" for="location1">
-                  <span class="checkbox-icon"></span>
-                  New York
-                </label>
-
-                <input id="location2"
-                  class="checkbox-input"
-                  type="radio"
-                  name="location"
-                  value="San Francisco"
-                />
-                <label class="checkbox-label" for="location2">
-                  <span class="checkbox-icon"></span>
-                  San Francisco
-                </label>
-
-                <input id="location3"
-                  class="checkbox-input"
-                  type="radio"
-                  name="location"
-                  value="Seattle"
-                />
-                <label class="checkbox-label" for="location3">
-                  <span class="checkbox-icon"></span>
-                  Seattle
-                </label>
-
-                <input id="location4"
-                  class="checkbox-input"
-                  type="radio"
-                  name="location"
-                  value="Chicago"
-                />
-                <label class="checkbox-label" for="location4">
-                  <span class="checkbox-icon"></span>
-                  Chicago
-                </label>
-
-                <input id="location5"
-                  class="checkbox-input"
-                  type="radio"
-                  name="location"
-                  value="Boston"
-                />
-                <label class="checkbox-label" for="location5">
-                  <span class="checkbox-icon"></span>
-                  Boston
-                </label>
-
-                <input id="location6"
-                  class="checkbox-input"
-                  type="radio"
-                  name="location"
-                  value="Portland"
-                />
-                <label class="checkbox-label" for="location6">
-                  <span class="checkbox-icon"></span>
-                  Portland
-                </label>
-
-              </div>
--->

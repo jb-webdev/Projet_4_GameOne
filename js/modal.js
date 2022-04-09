@@ -8,6 +8,10 @@ function editNav() {
     x.className = "topnav";
   }
 }
+const btnClickMenu = document.querySelector('.clickOpen');
+btnClickMenu.addEventListener('click', function() {
+  editNav();
+});
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
