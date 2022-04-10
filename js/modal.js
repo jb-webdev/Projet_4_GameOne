@@ -36,12 +36,13 @@ function closeModal(m, b){
   const btnListener = document.querySelector(b);
     function closeModal(){
         recModal.style.display = 'none';
+        // je vide mon localStorage à la fermeture de la modal.
+        localStorage.clear();
     }
   btnListener.addEventListener("click", closeModal);    
 }
 // je declare des variable avec les paramêtres désiré.
 // PARAMS Modal Inscription
-
 
 const modalInscription = ".bground";
 const btnInscriptionClose = ".close";
@@ -55,110 +56,118 @@ closeModal(messageValidation, btnMessageValidation); // FERMETURE DE LA MODAL ME
 //=============================================
 // ======== Control du formulaire =============
 //=============================================
-// Variables utile pour le script 
+
+// Je créer des objets avec les valeur utils. 
 //==============================
+// Objet pour recuperer mes ID
+const inputsId = new Object();
 
-// PRENOM à controller
-const inputPrenom = 'first';
-const spanErrorPrenom = "erreurPrenom";
+inputsId.prenom = "first";
+inputsId.nom = "last";
+inputsId.email = "email";
+inputsId.birthdate = "birthdate";
+inputsId.quantity = "quantity";
+inputsId.cgu = "checkbox1";
+inputsId.newslater = "checkbox2";
 
-// NOM à controller
-const inputNom = "last";
-const spanErrorNom = "erreurNom";
-const regexUserName = /^[a-zA-Z-\s]{2,}$/; // on accepte les minuscule les majuscule le tiret et un espace
+// Objet pour recuperer mes ID pour affichage des message erreur
+const spanErrorInputs = new Object();
 
-// EMAIL à contrôler
-const inputEmail = "email";
-const spanErrorEmail = "erreurEmail";
-  // regex pour le contrôle de l'email.
-const regexEmail =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+spanErrorInputs.prenom = "erreurPrenom";
+spanErrorInputs.nom = "erreurNom";
+spanErrorInputs.email = "erreurEmail";
+spanErrorInputs.birthdate = "erreurBirthdate";
+spanErrorInputs.quantity = "erreurQuantity";
+spanErrorInputs.cgu = "spanErrorCheckCgu";
 
-// BIRTHDAY à controller
-const inputBirthdate = "birthdate";
-const spanErrorBirthdate = "erreurBirthdate";
-  // regex pour le controle de la date
-const regexDate = /^[0-9]{4}([\-/ \.])[0-9]{2}[\-/ \.][0-9]{2}$/;
+// Objet pour l'affichage du message d'erreur.
+const messageError = new Object();
 
-// QUANTITY à controller
-const inputQuantity ="quantity";
-const spanErrorQuantity = "erreurQuantity";
-  // regex pour le controlle de la quantity
-const regexQuantity = /^[0-9]{1,}$/;
+messageError.msg1 = "Le champ ne pas être vide !";
+messageError.msg2 = "Veuillez entrer 2 caractères ou plus";
+messageError.email = "Votre email est invalide";
+messageError.date = "Vous devez entrer votre date de naissance.";
+messageError.quantity = "Votre quantity est invalide";
+messageError.cgu = "Vous devez vérifier que vous acceptez les termes et conditions";
 
-// QUANTITY à controller
-const inputCheckCgu ="checkbox1";
-const spanErrorCheckCgu = "spanErrorCheckCgu";
+// Objet pour mes regex.
+const regexVerification = new Object();
 
+regexVerification.userName = /^[a-zA-Z-\s]{2,}$/;
+regexVerification.email = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+regexVerification.date = /^[0-9]{4}([\-/ \.])[0-9]{2}[\-/ \.][0-9]{2}$/;
+regexVerification.quantity = /^[0-9]{1,}$/;
 
-// Fonction Util pour la vérification du formulaire
-//==================================================
+// Objet pour la modal du message.
+const messageEnvoye = new Object();
+messageEnvoye.etat = false;
+messageEnvoye.id = "wrapper-modal-confirmation";
 
-// FONCTION pour le message d'erreur à afficher
-function getCodeValidation(recElement) {
+ // FONCTION pour le message d'erreur à afficher
+ function getCodeValidation(recElement) {
   // exemple : return document.getElementById("erreurPrenom"), re = regex
   return document.getElementById(recElement);
 }
-
 // Fonction pour contrôler les élements que je désire vérifier.
-function validNombreCaractère (a, spanErr, re) {
+function validNombreCaractère (a, spanErr, re, msg) {
   //a = inputId  & spanError = span message erreur a afficher si besoin, re = regex
   document.getElementById(a).addEventListener("input", function(e) {
-    const recElement = spanErr; // on rajoute l'id de lelement à modifier.
-    let regexTest = re;
-    if (regexTest.test(e.target.value)) {
-      getCodeValidation(recElement).innerText = "";
-    } else {
-      getCodeValidation(recElement).innerText = "Veuillez entrer ou moins 2 caractères !";
-      
-    }
-  });
-}
 
-// Fonction pour la vérification du mail
-function validEmailFonction (a, spanErr,re) {
-  //a = inputId  & spanError = span message erreur a afficher si besoin, re = regex
-  document.getElementById(a).addEventListener("input", function(e) {
-    const regex = re;
-    if (regex.test(e.target.value)) {
+    if (re.test(e.target.value)) {
       getCodeValidation(spanErr).innerText = "";
-    } else {
-      getCodeValidation(spanErr).innerText = "Votre email est invalide";
+    } else if(!e.target.value){
+      getCodeValidation(spanErr).innerText = msg.msg1;
+    }else {
+      getCodeValidation(spanErr).innerText = msg.msg2;
     }
   });
 }
-
+ // Fonction pour la vérification du mail
+ function validEmailFonction (a, spanErr,re, msg) {
+  //a = inputId  & spanError = span message erreur a afficher si besoin, re = regex
+  document.getElementById(a).addEventListener("input", function(e) {
+    
+    if (re.test(e.target.value)) {
+      getCodeValidation(spanErr).innerText = "";
+    } else if(!e.target.value){
+      getCodeValidation(spanErr).innerText = msg.msg1;
+    }else {
+      getCodeValidation(spanErr).innerText = msg.email;
+    }
+  });
+}
 // Fonction pour la vérification de la date de naissance
-function validBirthdateFunction(a, spanErr,re) {
+function validBirthdateFunction(a, spanErr,re, msg) {
   //a = inputId  & spanError = span message erreur a afficher si besoin, re = regex
   document.getElementById(a).addEventListener("input", function(e) {
     const regex = re;
     if (regex.test(e.target.value)) {
       getCodeValidation(spanErr).innerText = "";
     } else {
-      getCodeValidation(spanErr).innerText = "Votre email est invalide";
+      getCodeValidation(spanErr).innerText = msg.date;
     }
   });
 }
-
 // Fonction pour la vérification de la quantité
-function validQuantity(a, spanErr, re){
+function validQuantity(a, spanErr, re, msg){
   //a = inputId  & spanError = span message erreur a afficher si besoin, re = regex
   document.getElementById(a).addEventListener("input", function(e) {
     const regex = re;
     if (regex.test(e.target.value)) {
       getCodeValidation(spanErr).innerText = "";
+    } else if(!e.target.value){
+      getCodeValidation(spanErr).innerText = msg.msg1;
     } else {
-      getCodeValidation(spanErr).innerText = "Votre quantity est invalide";
+      getCodeValidation(spanErr).innerText = msg.quantity;
     }
   });
 }
-
-// Fonction pour la vérification de la quantité
-function validCheckCgu(a, spanErr){
+ // Fonction pour la vérification de la quantité
+ function validCheckCgu(a, spanErr, msg){
   //a = inputCheckbox  
   document.getElementById(a).addEventListener("input", function(e) {
     if (this.checked == false){
-      document.getElementById(spanErr).innerText = "Votre quantity est invalide";
+      document.getElementById(spanErr).innerText = msg.cgu;
     } else {
       document.getElementById(spanErr).innerText = "";
     }
@@ -169,55 +178,59 @@ function validCheckCgu(a, spanErr){
 // Je lance toutes les fonction dont j'ai besoin pour vérifier mon formulaire avant le click du btn envoyer
 //=========================================================================================================
 // verification nom et prénom
-validNombreCaractère(inputPrenom, spanErrorPrenom, regexUserName);
-validNombreCaractère(inputNom, spanErrorNom, regexUserName);
+validNombreCaractère(inputsId.prenom, spanErrorInputs.prenom, regexVerification.userName, messageError);
+validNombreCaractère(inputsId.nom, spanErrorInputs.nom, regexVerification.userName, messageError);
 // verification email
-validEmailFonction(inputEmail, spanErrorEmail, regexEmail);
+validEmailFonction(inputsId.email, spanErrorInputs.email, regexVerification.email, messageError);
 // verification date de naissance
-validBirthdateFunction(inputBirthdate, spanErrorBirthdate, regexDate);
-validQuantity(inputQuantity, spanErrorQuantity, regexQuantity);
+validBirthdateFunction(inputsId.birthdate, spanErrorInputs.birthdate, regexVerification.date, messageError);
+// verification quantity
+validQuantity(inputsId.quantity, spanErrorInputs.quantity, regexVerification.quantity, messageError);
 // verification checkbox CGU
-validCheckCgu(inputCheckCgu, spanErrorCheckCgu);
+validCheckCgu(inputsId.cgu, spanErrorInputs.cgu, messageError);
 
-
+// Je creer un fonction qui stock une valeur non sensible dans le localstorage.
+function storageEtat(){
+  return localStorage.setItem("etatMessage", true);
+}
+// Je creer une fonction pour afficher ma modal message envoyé.
+function afficheMessage (){
+  if(localStorage.etatMessage){
+    let modalMessage = document.querySelector(".wrapper-modal-confirmation");
+    modalMessage.style.display = 'block';
+  }
+}
 // J'ecoute l'evenement submit et je relance les fonction a l'intèrieur.
 //======================================================================
-document.forms["formValid"].addEventListener("submit", function(e){
-    // REGEX
-    const regexForUsername = /^[a-zA-Z-\s]{2,}$/;
-    const regexForEmail =  /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const regexForDate = /^[0-9]{4}([\-/ \.])[0-9]{2}[\-/ \.][0-9]{2}$/;
-    const regexQuantite = /^[0-9]{1,}$/;
-    // VARIABLE
-    let prenom = document.forms["reserve"]["first"]; 
-    let name = document.forms["reserve"]["last"];               
-    let email = document.forms["reserve"]["email"];
-    let birthdate = document.forms["reserve"]["birthdate"];
-    let quantity = document.forms["reserve"]["quantity"];
-    let checkCgu = document.forms["reserve"]["checkbox1"];
+document.forms["formValid"].addEventListener("submit", function (e) {
 
-    if (!regexForUsername.test(prenom.value)){
-      e.preventDefault();
-      return false
-    }if (!regexForUsername.test(name.value)){
-      e.preventDefault();
-      return false
-    }if (!regexForEmail.test(email.value)){
-      e.preventDefault();
-      return false
-    }if (!regexForDate.test(birthdate.value)){
-      e.preventDefault();
-      return false
-    }if (!regexQuantite.test(quantity.value)){
-      e.preventDefault();
-      return false
-    }if (!checkCgu.checked){
-      e.preventDefault();
-      return false
-    }else {
-      return true
-    }
+  if (!regexVerification.userName.test(document.forms["reserve"][inputsId.prenom].value)) {
+    e.preventDefault();
+    return false
+  } else if (!regexVerification.userName.test(document.forms["reserve"][inputsId.nom].value)) {
+    e.preventDefault();
+    return false
+  } else if (!regexVerification.email.test(document.forms["reserve"][inputsId.email].value)) {
+    e.preventDefault();
+    return false
+  } else if (!regexVerification.date.test(document.forms["reserve"][inputsId.birthdate].value)) {
+    e.preventDefault();
+    return false
+  } else if (!regexVerification.quantity.test(document.forms["reserve"][inputsId.quantity].value)) {
+    e.preventDefault();
+    return false
+  } else if (!document.forms["reserve"][inputsId.cgu].checked) {
+    e.preventDefault();
+    return false
+  } else {
+    storageEtat ()
+    return true;
+  }
 })
+
+// j'affiche le message après l'envoie !
+afficheMessage();
+
 // ===========================================
 // ============== FIN DU SCRIPT ==============
 // ===========================================

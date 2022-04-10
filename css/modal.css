@@ -696,7 +696,7 @@ footer {
 }
 @media screen and (max-width: 960px) {
     .hero-headline {
-        font-size: clamp(3.9rem, 4.5rem, 4rem);
+        font-size: 3.2em;
     }
     .hero-text {
         font-size: 2.8vw;
@@ -727,7 +727,6 @@ footer {
     }
 
     .hero-headline {
-        font-size: 9vw;
         white-space: normal;
     }
 
