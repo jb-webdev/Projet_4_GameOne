@@ -92,6 +92,9 @@ img {
     color: var(--color-white);
     border-radius: 15px;
 }
+.topnav a:hover .fa{
+    color: var(--color-white);
+}
 
 .topnav a.active {
     background-color: var(--bg-red-primary);
@@ -106,11 +109,11 @@ img {
 .topnav .icon .fa {
     color: var(--bg-red-primary);
 }
-
+/*
 .topnav .icon .fa:hover {
     color: var(--color-white);
 }
-
+*/
 @media screen and (max-width: 1200px) {
     .topnav a {
         display: none;
