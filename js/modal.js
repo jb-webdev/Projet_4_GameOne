@@ -56,186 +56,215 @@ closeModal(messageValidation, btnMessageValidation); // FERMETURE DE LA MODAL ME
 //=============================================
 // ======== Control du formulaire =============
 //=============================================
+// On ecoute les entrees dans l'input FIRST
+document.getElementById('first').addEventListener("input", function (e) {
+  let valuePrenom = e.target.value;
+  validFirst(valuePrenom);
+});
+// fonction pour verifier le formulaire FIRST
+function validFirst(elt) {
 
-// Je créer des objets avec les valeur utils. 
-//==============================
-// Objet pour recuperer mes ID
-const inputsId = new Object();
+  let regex = /^[a-zA-Z-\s]{2,}$/;
+  let errorPrenom = false;
 
-inputsId.prenom = "first";
-inputsId.nom = "last";
-inputsId.email = "email";
-inputsId.birthdate = "birthdate";
-inputsId.quantity = "quantity";
-inputsId.cgu = "checkbox1";
-inputsId.newslater = "checkbox2";
+  let msgError = document.getElementById("erreurPrenom");
 
-// Objet pour recuperer mes ID pour affichage des message erreur
-const spanErrorInputs = new Object();
-
-spanErrorInputs.prenom = "erreurPrenom";
-spanErrorInputs.nom = "erreurNom";
-spanErrorInputs.email = "erreurEmail";
-spanErrorInputs.birthdate = "erreurBirthdate";
-spanErrorInputs.quantity = "erreurQuantity";
-spanErrorInputs.location = "spanErrorLocation"
-spanErrorInputs.cgu = "spanErrorCheckCgu";
-
-// Objet pour l'affichage du message d'erreur.
-const messageError = new Object();
-
-messageError.msg1 = "Le champ ne pas être vide !";
-messageError.msg2 = "Veuillez entrer 2 caractères ou plus";
-messageError.email = "Votre email est invalide";
-messageError.date = "Vous devez entrer votre date de naissance.";
-messageError.quantity = "Votre quantity est invalide";
-messageError.location = "Vous devez selectionner obligatoirement une ville"
-messageError.cgu = "Vous devez vérifier que vous acceptez les termes et conditions";
-
-// Objet pour mes regex.
-const regexVerification = new Object();
-
-regexVerification.userName = /^[a-zA-Z-\s]{2,}$/;
-regexVerification.email = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-regexVerification.date = /^[0-9]{4}([\-/ \.])[0-9]{2}[\-/ \.][0-9]{2}$/;
-regexVerification.quantity = /^[0-9]{1,}$/;
-
-// Objet pour la modal du message.
-const messageEnvoye = new Object();
-messageEnvoye.etat = false;
-messageEnvoye.id = "wrapper-modal-confirmation";
-
- 
-// Fonction pour contrôler les élements que je désire vérifier.
-function validNombreCaractère (a, spanErr, re, msg) {
-  //a = inputId  & spanError = span message erreur a afficher si besoin, re = regex
-  document.getElementById(a).addEventListener("input", function(e) {
-
-    if (re.test(e.target.value)) {
-      document.getElementById(spanErr).innerText = "";
-    } else if(!e.target.value){
-      document.getElementById(spanErr).innerText = msg.msg1;
-    }else {
-      document.getElementById(spanErr).innerText = msg.msg2;
-    }
-  });
+  if (!elt) {
+    msgError.innerText = "Le champ ne doit pas être vide !";
+    errorPrenom = false;
+  } else if (!regex.test(elt)) {
+    msgError.innerText = "Veuillez entrer 2 caractères ou plus";
+    errorPrenom = false;
+  } else if (regex.test(elt)) {
+    msgError.innerText = "";
+    errorPrenom = true;
+  }
+  else {
+    errorPrenom = true;
+  }
+  return errorPrenom;
 }
- // Fonction pour la vérification du mail
- function validEmailFonction (a, spanErr,re, msg) {
-  //a = inputId  & spanError = span message erreur a afficher si besoin, re = regex
-  document.getElementById(a).addEventListener("input", function(e) {
-    
-    if (re.test(e.target.value)) {
-      document.getElementById(spanErr).innerText = "";
-    } else if(!e.target.value){
-      document.getElementById(spanErr).innerText = msg.msg1;
-    }else {
-      document.getElementById(spanErr).innerText = msg.email;
-    }
-  });
+
+//=======================================
+// On ecoute les entrees dans l'input LAST
+document.getElementById('last').addEventListener("input", function (e) {
+  let valueNom = e.target.value;
+  validLast(valueNom);
+});
+// fonction pour verifier le formulaire LAST
+function validLast(elt) {
+  let regexName = /^[a-zA-Z-\s]{2,}$/;
+  let errorName = false;
+
+  let msgError = document.getElementById("erreurNom");
+
+  if (!elt) {
+    msgError.innerHTML = "Le champ ne doit pas être vide !";
+    errorName = false;
+  } else if (!regexName.test(elt)) {
+    msgError.innerHTML = "Veuillez entrer 2 caractères ou plus";
+    errorName = false;
+  } else if (regexName.test(elt)) {
+    msgError.innerHTML = "";
+    errorName = true;
+  }
+  return errorName;
 }
-// Fonction pour la vérification de la date de naissance
-function validBirthdateFunction(a, spanErr,re, msg) {
-  //a = inputId  & spanError = span message erreur a afficher si besoin, re = regex
-  document.getElementById(a).addEventListener("input", function(e) {
-    const regex = re;
-    if (regex.test(e.target.value)) {
-      document.getElementById(spanErr).innerText = "";
-    } else {
-      document.getElementById(spanErr).innerText = msg.date;
-    }
-  });
+
+//=======================================
+// On ecoute les entrees dans l'input Email
+document.getElementById('email').addEventListener("input", function (e) {
+  let valueEmail = e.target.value;
+  validEmail(valueEmail);
+});
+// fonction pour verifier le formulaire Email
+function validEmail(elt) {
+  let regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  let errorEmail = false;
+
+  let msgError = document.getElementById("erreurEmail");
+
+  if (!elt) {
+    msgError.innerHTML = "Le champ ne doit pas être vide !";
+    errorEmail = false;
+  } if (!regexEmail.test(elt)) {
+    msgError.innerHTML = "Votre email est invalide";
+    errorEmail = false;
+  } if (regexEmail.test(elt)) {
+    msgError.innerHTML = "";
+    errorEmail = true;
+  }
+  return errorEmail;
 }
-// Fonction pour la vérification de la quantité
-function validQuantity(a, spanErr, re, msg){
-  //a = inputId  & spanError = span message erreur a afficher si besoin, re = regex
-  document.getElementById(a).addEventListener("input", function(e) {
-    const regex = re;
-    if (regex.test(e.target.value)) {
-      document.getElementById(spanErr).innerText = "";
-    } else if(!e.target.value){
-      document.getElementById(spanErr).innerText = msg.msg1;
-    } else {
-      document.getElementById(spanErr).innerText = msg.quantity;
-    }
-  });
+
+//=======================================
+// On ecoute les entrees dans l'input DATE
+document.getElementById('birthdate').addEventListener("input", function (e) {
+  let valueDate = e.target.value;
+  validDate(valueDate);
+});
+// fonction pour verifier le formulaire DATE
+function validDate(elt) {
+  let regexDate = /^[0-9]{4}([\-/ \.])[0-9]{2}[\-/ \.][0-9]{2}$/;
+  let errorDate = false;
+  let msgError = document.getElementById("erreurBirthdate");
+
+  if (!elt) {
+    msgError.innerHTML = "Le champ ne doit pas être vide !";
+    errorDate = false;
+  } if (!regexDate.test(elt)) {
+    msgError.innerHTML = "Vous devez entrer votre date de naissance.";
+    errorDate = false;
+  } if (regexDate.test(elt)) {
+    msgError.innerHTML = "";
+    errorDate = true;
+  }
+  return errorDate;
 }
- // Fonction pour la vérification de la quantité
- function validCheckCgu(a, spanErr, msg){
-  //a = inputCheckbox  
-  document.getElementById(a).addEventListener("input", function(e) {
-    if (this.checked == false){
-      document.getElementById(spanErr).innerText = msg.cgu;
-    } else {
-      document.getElementById(spanErr).innerText = "";
-    }
-  });
+
+//=======================================
+// On ecoute les entrees dans l'input QUANTITY
+document.getElementById("quantity").addEventListener("input", function (e) {
+  let valueQuantity = e.target.value;
+  validQuantity(valueQuantity);
+});
+
+// fonction pour verifier le formulaire QUANTITY
+function validQuantity(elt) {
+  let errorQuantity = false;
+  let regexQuantity = /^[0-9]{1,}$/;
+  let msgError = document.getElementById("erreurQuantity");
+
+  if (!elt) {
+    msgError.innerHTML = "Le champ ne doit pas être vide !";
+    errorQuantity = false;
+  } if (!regexQuantity.test(elt) || elt === "e") {
+    msgError.innerHTML = "votre saisie est invalide !";
+    errorQuantity = false;
+  } else if (regexQuantity.test(elt)) {
+    msgError.innerHTML = "";
+    errorQuantity = true;
+  }
+  return errorQuantity;
 }
+
+//=======================================
+// On ecoute les entrees dans l'input CGU
+document.getElementById("checkbox1").addEventListener("input", function (e) {
+  let checkedCgu = this.checked;
+  validCgu(checkedCgu);
+});
+
+// fonction pour verifier le formulaire CGU
+function validCgu(elt) {
+  let errorCgu = false;
+  let msgError = document.getElementById("spanErrorCheckCgu");
+
+  if (!elt) {
+    msgError.innerText = "Vous devez acceptez les termes et conditions";
+    errorCgu = false;
+  } else {
+    msgError.innerText = "";
+    errorCgu = true
+  }
+  return errorCgu;
+}
+
 // Fonction pour la verification de la selection de la ville du tournoi inputs radio
-function validCheckRadioLocation(spanErr, msg){
-  //a = inputCheckbox  
-  document.forms["formValid"].addEventListener("submit", function (e) {
-    if (document.forms["reserve"]["location"].value === ""){
-      document.getElementById(spanErr).innerText = msg.location;
-    }
-  });
+function validCheckRadioLocation(elt) {
+  let errorLocation = false;
+  let msgError = document.getElementById("spanErrorLocation");
+  if (!elt) {
+    msgError.innerText = "Vous devez selectionner obligatoirement une ville";
+    errorLocation = false;
+  } else {
+    msgError.innerText = "";
+    errorLocation = true
+  }
+  return errorLocation;
 }
-
-
-// Je lance toutes les fonctions dont j'ai besoin pour vérifier mon formulaire avant le click du btn envoyer
-//=========================================================================================================
-// verification nom et prénom
-validNombreCaractère(inputsId.prenom, spanErrorInputs.prenom, regexVerification.userName, messageError);
-validNombreCaractère(inputsId.nom, spanErrorInputs.nom, regexVerification.userName, messageError);
-// verification email
-validEmailFonction(inputsId.email, spanErrorInputs.email, regexVerification.email, messageError);
-// verification date de naissance
-validBirthdateFunction(inputsId.birthdate, spanErrorInputs.birthdate, regexVerification.date, messageError);
-// verification quantity
-validQuantity(inputsId.quantity, spanErrorInputs.quantity, regexVerification.quantity, messageError);
-// verification checkbox CGU
-validCheckCgu(inputsId.cgu, spanErrorInputs.cgu, messageError);
-// verification check location radio
-validCheckRadioLocation(spanErrorInputs.location, messageError);
 
 // Je creer un fonction qui stock une valeur non sensible dans le localstorage.
-function storageEtat(){
+function storageEtat() {
   return localStorage.setItem("etatMessage", true);
 }
 // Je creer une fonction pour afficher ma modal message envoyé.
-function afficheMessage (){
-  if(localStorage.etatMessage){
+function afficheMessage() {
+  if (localStorage.etatMessage) {
     let modalMessage = document.querySelector(".wrapper-modal-confirmation");
     modalMessage.style.display = 'block';
   }
 }
+
+// J'ecoute l'evenement submit et je relance les fonction a l'intèrieur.
+//======================================================================
 // J'ecoute l'evenement submit et je relance les fonction a l'intèrieur.
 //======================================================================
 document.forms["formValid"].addEventListener("submit", function (e) {
-  
-  if (!regexVerification.userName.test(document.forms["reserve"][inputsId.prenom].value)) {
-    e.preventDefault();
-    return false
-  } else if (!regexVerification.userName.test(document.forms["reserve"][inputsId.nom].value)) {
-    e.preventDefault();
-    return false
-  } else if (!regexVerification.email.test(document.forms["reserve"][inputsId.email].value)) {
-    e.preventDefault();
-    return false
-  } else if (!regexVerification.date.test(document.forms["reserve"][inputsId.birthdate].value)) {
-    e.preventDefault();
-    return false
-  } else if (!regexVerification.quantity.test(document.forms["reserve"][inputsId.quantity].value)) {
-    e.preventDefault();
-    return false
-  } else if(document.forms["reserve"]["location"].value === ""){
-    e.preventDefault();
-    return false
-  } else if (!document.forms["reserve"][inputsId.cgu].checked) {
+  let valueFirst = document.forms["reserve"]['first'].value;
+  let valueLast = document.forms["reserve"]['last'].value;
+  let valueEmail = document.forms["reserve"]['email'].value;
+  let valueBirthdate = document.forms["reserve"]['birthdate'].value;
+  let valueQuantity = document.forms["reserve"]['quantity'].value;
+  let valueLocation = document.forms["reserve"]['location'].value;
+  let valueCgu = document.forms["reserve"]['checkbox1'].checked;
+
+
+  let errorSubmitValidation =
+    validFirst(valueFirst)
+    && validLast(valueLast)
+    && validLast(valueLast)
+    && validEmail(valueEmail)
+    && validDate(valueBirthdate)
+    && validQuantity(valueQuantity)
+    && validCgu(valueCgu)
+    && validCheckRadioLocation(valueLocation);
+
+  if (errorSubmitValidation == false) {
     e.preventDefault();
     return false
   } else {
-    storageEtat ()
+    storageEtat()
     return true;
   }
 })

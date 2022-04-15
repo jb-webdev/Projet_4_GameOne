@@ -813,7 +813,7 @@ footer {
 }
 
 #modalConfirmation {
-    color: var(--bg-red-primary);
+    color: var(--color-white);
     text-align: center;
 }
 
