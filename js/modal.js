@@ -78,6 +78,7 @@ spanErrorInputs.nom = "erreurNom";
 spanErrorInputs.email = "erreurEmail";
 spanErrorInputs.birthdate = "erreurBirthdate";
 spanErrorInputs.quantity = "erreurQuantity";
+spanErrorInputs.location = "spanErrorLocation"
 spanErrorInputs.cgu = "spanErrorCheckCgu";
 
 // Objet pour l'affichage du message d'erreur.
@@ -88,6 +89,7 @@ messageError.msg2 = "Veuillez entrer 2 caractères ou plus";
 messageError.email = "Votre email est invalide";
 messageError.date = "Vous devez entrer votre date de naissance.";
 messageError.quantity = "Votre quantity est invalide";
+messageError.location = "Vous devez selectionner obligatoirement une ville"
 messageError.cgu = "Vous devez vérifier que vous acceptez les termes et conditions";
 
 // Objet pour mes regex.
@@ -103,22 +105,18 @@ const messageEnvoye = new Object();
 messageEnvoye.etat = false;
 messageEnvoye.id = "wrapper-modal-confirmation";
 
- // FONCTION pour le message d'erreur à afficher
- function getCodeValidation(recElement) {
-  // exemple : return document.getElementById("erreurPrenom"), re = regex
-  return document.getElementById(recElement);
-}
+ 
 // Fonction pour contrôler les élements que je désire vérifier.
 function validNombreCaractère (a, spanErr, re, msg) {
   //a = inputId  & spanError = span message erreur a afficher si besoin, re = regex
   document.getElementById(a).addEventListener("input", function(e) {
 
     if (re.test(e.target.value)) {
-      getCodeValidation(spanErr).innerText = "";
+      document.getElementById(spanErr).innerText = "";
     } else if(!e.target.value){
-      getCodeValidation(spanErr).innerText = msg.msg1;
+      document.getElementById(spanErr).innerText = msg.msg1;
     }else {
-      getCodeValidation(spanErr).innerText = msg.msg2;
+      document.getElementById(spanErr).innerText = msg.msg2;
     }
   });
 }
@@ -128,11 +126,11 @@ function validNombreCaractère (a, spanErr, re, msg) {
   document.getElementById(a).addEventListener("input", function(e) {
     
     if (re.test(e.target.value)) {
-      getCodeValidation(spanErr).innerText = "";
+      document.getElementById(spanErr).innerText = "";
     } else if(!e.target.value){
-      getCodeValidation(spanErr).innerText = msg.msg1;
+      document.getElementById(spanErr).innerText = msg.msg1;
     }else {
-      getCodeValidation(spanErr).innerText = msg.email;
+      document.getElementById(spanErr).innerText = msg.email;
     }
   });
 }
@@ -142,9 +140,9 @@ function validBirthdateFunction(a, spanErr,re, msg) {
   document.getElementById(a).addEventListener("input", function(e) {
     const regex = re;
     if (regex.test(e.target.value)) {
-      getCodeValidation(spanErr).innerText = "";
+      document.getElementById(spanErr).innerText = "";
     } else {
-      getCodeValidation(spanErr).innerText = msg.date;
+      document.getElementById(spanErr).innerText = msg.date;
     }
   });
 }
@@ -154,11 +152,11 @@ function validQuantity(a, spanErr, re, msg){
   document.getElementById(a).addEventListener("input", function(e) {
     const regex = re;
     if (regex.test(e.target.value)) {
-      getCodeValidation(spanErr).innerText = "";
+      document.getElementById(spanErr).innerText = "";
     } else if(!e.target.value){
-      getCodeValidation(spanErr).innerText = msg.msg1;
+      document.getElementById(spanErr).innerText = msg.msg1;
     } else {
-      getCodeValidation(spanErr).innerText = msg.quantity;
+      document.getElementById(spanErr).innerText = msg.quantity;
     }
   });
 }
@@ -173,9 +171,18 @@ function validQuantity(a, spanErr, re, msg){
     }
   });
 }
+// Fonction pour la verification de la selection de la ville du tournoi inputs radio
+function validCheckRadioLocation(spanErr, msg){
+  //a = inputCheckbox  
+  document.forms["formValid"].addEventListener("submit", function (e) {
+    if (document.forms["reserve"]["location"].value === ""){
+      document.getElementById(spanErr).innerText = msg.location;
+    }
+  });
+}
 
 
-// Je lance toutes les fonction dont j'ai besoin pour vérifier mon formulaire avant le click du btn envoyer
+// Je lance toutes les fonctions dont j'ai besoin pour vérifier mon formulaire avant le click du btn envoyer
 //=========================================================================================================
 // verification nom et prénom
 validNombreCaractère(inputsId.prenom, spanErrorInputs.prenom, regexVerification.userName, messageError);
@@ -188,6 +195,8 @@ validBirthdateFunction(inputsId.birthdate, spanErrorInputs.birthdate, regexVerif
 validQuantity(inputsId.quantity, spanErrorInputs.quantity, regexVerification.quantity, messageError);
 // verification checkbox CGU
 validCheckCgu(inputsId.cgu, spanErrorInputs.cgu, messageError);
+// verification check location radio
+validCheckRadioLocation(spanErrorInputs.location, messageError);
 
 // Je creer un fonction qui stock une valeur non sensible dans le localstorage.
 function storageEtat(){
@@ -203,7 +212,7 @@ function afficheMessage (){
 // J'ecoute l'evenement submit et je relance les fonction a l'intèrieur.
 //======================================================================
 document.forms["formValid"].addEventListener("submit", function (e) {
-
+  
   if (!regexVerification.userName.test(document.forms["reserve"][inputsId.prenom].value)) {
     e.preventDefault();
     return false
@@ -217,6 +226,9 @@ document.forms["formValid"].addEventListener("submit", function (e) {
     e.preventDefault();
     return false
   } else if (!regexVerification.quantity.test(document.forms["reserve"][inputsId.quantity].value)) {
+    e.preventDefault();
+    return false
+  } else if(document.forms["reserve"]["location"].value === ""){
     e.preventDefault();
     return false
   } else if (!document.forms["reserve"][inputsId.cgu].checked) {
