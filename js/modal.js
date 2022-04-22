@@ -41,7 +41,7 @@ function closeModal(m, b){
     }
   btnListener.addEventListener("click", closeModal);    
 }
-// je declare des variable avec les paramêtres désiré.
+// je declare des variables .
 // PARAMS Modal Inscription
 
 const modalInscription = ".bground";
@@ -49,6 +49,7 @@ const btnInscriptionClose = ".close";
 // PARAMS Modal message validation
 const messageValidation = ".wrapper-modal-confirmation";
 const btnMessageValidation = ".closeMsgValidation";
+
 
 closeModal(modalInscription, btnInscriptionClose); // FERMETURE DE LA MODAL INSCRIPTION
 closeModal(messageValidation, btnMessageValidation); // FERMETURE DE LA MODAL MESSAGE VALIDATION
@@ -150,7 +151,7 @@ function validEmail(elt) {
 }
 
 //=======================================
-// On ecoute les entrees dans l'input DATE
+// On ecoute les entrées dans l'input DATE
 document.getElementById('birthdate').addEventListener("input", function (e) {
   let valueDate = e.target.value;
   validDate(valueDate);
@@ -192,15 +193,11 @@ function validQuantity(elt) {
   let msgError = document.getElementById("erreurQuantity");
   let errorInputBorder = document.getElementById("quantity");
 
-  if (elt === ""){
+  if (!elt){
     msgError.innerHTML = "Le champ ne doit pas être vide !";
     errorInputBorder.style.border = "2px solid red";
     errorQuantity = false;
-  } else if (!regexQuantity.test(elt)) {
-    msgError.innerHTML = "votre saisie est invalide !";
-    errorInputBorder.style.border = "2px solid red";
-    errorQuantity = false;
-  } if (regexQuantity.test(elt)) {
+  }  if (regexQuantity.test(elt)) {
     msgError.innerHTML = "";
     errorInputBorder.style.border = "none";
     errorQuantity = true;
@@ -277,8 +274,8 @@ document.forms["formValid"].addEventListener("submit", function (e) {
     && validEmail(valueEmail)
     && validDate(valueBirthdate)
     && validQuantity(valueQuantity)
-    && validCgu(valueCgu)
-    && validCheckRadioLocation(valueLocation);
+    && validCheckRadioLocation(valueLocation)
+    && validCgu(valueCgu);
 
   if (errorSubmitValidation == false) {
     e.preventDefault();
