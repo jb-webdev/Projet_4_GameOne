@@ -68,15 +68,19 @@ function validFirst(elt) {
   let errorPrenom = false;
 
   let msgError = document.getElementById("erreurPrenom");
+  let errorInputBorder = document.getElementById("first");
 
   if (!elt) {
     msgError.innerText = "Le champ ne doit pas être vide !";
+    errorInputBorder.style.border = "2px solid red";
     errorPrenom = false;
   } else if (!regex.test(elt)) {
     msgError.innerText = "Veuillez entrer 2 caractères ou plus";
+    errorInputBorder.style.border = "2px solid red";
     errorPrenom = false;
   } else if (regex.test(elt)) {
     msgError.innerText = "";
+    errorInputBorder.style.border = "none";
     errorPrenom = true;
   }
   else {
@@ -97,15 +101,19 @@ function validLast(elt) {
   let errorName = false;
 
   let msgError = document.getElementById("erreurNom");
+  let errorInputBorder = document.getElementById("last");
 
   if (!elt) {
     msgError.innerHTML = "Le champ ne doit pas être vide !";
+    errorInputBorder.style.border = "2px solid red";
     errorName = false;
   } else if (!regexName.test(elt)) {
     msgError.innerHTML = "Veuillez entrer 2 caractères ou plus";
+    errorInputBorder.style.border = "2px solid red";
     errorName = false;
   } else if (regexName.test(elt)) {
     msgError.innerHTML = "";
+    errorInputBorder.style.border = "none";
     errorName = true;
   }
   return errorName;
@@ -121,17 +129,21 @@ document.getElementById('email').addEventListener("input", function (e) {
 function validEmail(elt) {
   let regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   let errorEmail = false;
+  let errorInputBorder = document.getElementById("email");
 
   let msgError = document.getElementById("erreurEmail");
 
   if (!elt) {
     msgError.innerHTML = "Le champ ne doit pas être vide !";
+    errorInputBorder.style.border = "2px solid red";
     errorEmail = false;
-  } if (!regexEmail.test(elt)) {
+  } else if(!regexEmail.test(elt)) {
     msgError.innerHTML = "Votre email est invalide";
+    errorInputBorder.style.border = "2px solid red";
     errorEmail = false;
-  } if (regexEmail.test(elt)) {
+  } else if (regexEmail.test(elt)) {
     msgError.innerHTML = "";
+    errorInputBorder.style.border = "none";
     errorEmail = true;
   }
   return errorEmail;
@@ -148,15 +160,19 @@ function validDate(elt) {
   let regexDate = /^[0-9]{4}([\-/ \.])[0-9]{2}[\-/ \.][0-9]{2}$/;
   let errorDate = false;
   let msgError = document.getElementById("erreurBirthdate");
+  let errorInputBorder = document.getElementById("birthdate");
 
   if (!elt) {
     msgError.innerHTML = "Le champ ne doit pas être vide !";
+    errorInputBorder.style.border = "2px solid red";
     errorDate = false;
   } if (!regexDate.test(elt)) {
     msgError.innerHTML = "Vous devez entrer votre date de naissance.";
+    errorInputBorder.style.border = "2px solid red";
     errorDate = false;
   } if (regexDate.test(elt)) {
     msgError.innerHTML = "";
+    errorInputBorder.style.border = "none";
     errorDate = true;
   }
   return errorDate;
@@ -174,15 +190,19 @@ function validQuantity(elt) {
   let errorQuantity = false;
   let regexQuantity = /^[0-9]{1,}$/;
   let msgError = document.getElementById("erreurQuantity");
+  let errorInputBorder = document.getElementById("quantity");
 
-  if (!elt) {
+  if (elt === ""){
     msgError.innerHTML = "Le champ ne doit pas être vide !";
+    errorInputBorder.style.border = "2px solid red";
     errorQuantity = false;
-  } if (!regexQuantity.test(elt) || elt === "e") {
+  } else if (!regexQuantity.test(elt)) {
     msgError.innerHTML = "votre saisie est invalide !";
+    errorInputBorder.style.border = "2px solid red";
     errorQuantity = false;
-  } else if (regexQuantity.test(elt)) {
+  } if (regexQuantity.test(elt)) {
     msgError.innerHTML = "";
+    errorInputBorder.style.border = "none";
     errorQuantity = true;
   }
   return errorQuantity;

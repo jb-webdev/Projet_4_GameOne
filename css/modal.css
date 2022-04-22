@@ -3,6 +3,7 @@
     /*=== Background COLOR===*/
     --bg-body: #c4c4c4;
     --bg-red-primary: #ff0000;
+    --bg-red-primary-transparent: #b33e3ef1;
     --bg-red-secondary: #fe142f;
     --bg-blue-primary: #3876ac;
     --bg-black-primary: #232323;
@@ -65,10 +66,15 @@ img {
 
 .main-navbar {
     float: right;
+    /*on passe le menu au dessus*/
+    position: relative;
+    z-index: 10;
 }
 .topnav {
-    overflow: hidden;
     margin: 3.5%;
+    background-attachment: fixed;
+    height: 50px;
+    
 }
 .topnav a {
     float: left;
@@ -100,6 +106,7 @@ img {
     background-color: var(--bg-red-primary);
     color: var(--color-white);
     border-radius: 15px;
+    
 }
 
 .topnav .icon {
@@ -122,22 +129,34 @@ img {
     .topnav a.icon {
         float: right;
         display: block;
+        
+    }
+    .topnav .first-navlink{
+        margin-top: 60px;
+    }
+    .topnav .clickLink {
+        background-color: var(--bg-red-primary-transparent);
     }
 
     .topnav.responsive {
         position: relative;
     }
+    
 
     .topnav.responsive .icon {
         position: absolute;
         right: 0;
         top: 0;
+        z-index: 1;
     }
 
     .topnav.responsive a {
         float: none;
         display: block;
         text-align: left;
+    }
+    .main-navbar {
+        margin-bottom: 50px;
     }
 }
 
@@ -155,8 +174,12 @@ img {
     .header-logo img {
         margin: 0;
         width: auto;
-        height : clamp(25px, 40px, 30px); 
+        height : clamp(25px, 40px, 30px);
     }
+    .topnav .first-navlink{
+        margin-top: 50px;
+    }
+    
 }
 
 main {
@@ -189,11 +212,7 @@ main {
 .modal-btn:hover {
     background: var(--bg-blue-primary);
 }
-.footer {
-    margin: 20px;
-    padding: 10px;
-    font-family: var(--font-slab);
-}
+
 /*=========================================================*/
 /*=========================================================*/
 @-webkit-keyframes modalopen {
@@ -647,6 +666,7 @@ input[type=radio]:checked+label:before {
     font-size: 5rem;
     font-weight: normal;
     white-space: nowrap;
+    
 }
 
 .hero-text {
@@ -694,6 +714,14 @@ footer {
     padding-right: 2vw;
     margin: 0 20px;
 }
+@media screen and(max-width: 1200px){
+    main {
+        position: fixed;
+        margin-top: 100px;
+        z-index: -2;
+        
+    }
+}
 @media screen and (max-width: 990px) {
     .hero-headline {
         font-size: 4.7rem;
@@ -725,6 +753,7 @@ footer {
         padding: 20px;
         overflow: hidden;
         padding: 0;
+        position: inherit;
     }
 
     .hero-content::after {
