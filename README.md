@@ -3,6 +3,8 @@
 ## Créez une landing page avec Javascript
 _Projet 4 - GameOne - Mars 2022_
 
+![Screenshot](./img/Scrennshot-README.png)
+
 ## Mission  
 
 * Prendre le relai et completer la partie front-end.
