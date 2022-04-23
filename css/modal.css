@@ -102,11 +102,11 @@ img {
     color: var(--color-white);
 }
 
-.topnav a.active {
+.topnav a.active,
+.topnav a:hover {
     background-color: var(--bg-red-primary);
     color: var(--color-white);
     border-radius: 15px;
-    
 }
 
 .topnav .icon {
@@ -132,6 +132,7 @@ img {
         display: flex;
         flex-direction: column;
         max-width: 60%;
+        background-color: white;
     }
     .topnav a {
         display: none;
@@ -141,9 +142,6 @@ img {
         display: block;
         width: 43px;
         align-self: flex-end;
-    }
-    .topnav .clickLink {
-        background-color: var(--bg-red-primary-transparent);
     }
     .topnav.responsive {
         position: relative;
@@ -264,13 +262,13 @@ main {
 .bground {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 99;
     left: 0;
     top: 0;
     height: 100%;
     width: 100%;
     overflow: auto;
-    background-color: rgba(26, 39, 156, 0.4);
+    background-color: #ffffff;
 }
 
 .content {
@@ -531,7 +529,8 @@ input[type=radio]:checked+label:before {
 }
 
 .btn-submit,
-.btn-signup {
+.btn-signup,
+.btn-validation {
     background: var(--bg-red-secondary);
     display: block;
     margin: 0 auto;
@@ -710,14 +709,81 @@ footer {
     padding-right: 2vw;
     margin: 0 20px;
 }
-@media screen and(max-width: 1200px){
-    main {
-        position: fixed;
-        margin-top: 100px;
-        z-index: -2;
-        
-    }
+/* =========================================== */
+/* ========= MODAL VALIDATION ENVOIE ========= */
+/* =========================================== */
+
+.wrapper-modal-confirmation {
+    display: none;
+    position: fixed;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: #ffffff;
 }
+
+.wrapper-modal-confirmation-content {
+    margin: 15% auto;
+    width: 100%;
+    height: 500px;
+    max-width: 500px;
+    -webkit-animation-name: modalopen;
+            animation-name: modalopen;
+    -webkit-animation-duration: var(--modal-duration);
+            animation-duration: var(--modal-duration);
+    background: var(--bg-black-primary);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    color: var(--color-white);
+    padding-top: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+}
+/*Paragraphe Modal*/
+#modalConfirmation {
+    color: var(--color-white);  
+    height: 80%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+        -webkit-align-items: center;
+
+}
+/*Wrapper button validation*/
+.wrapper-button-validation {
+    
+    height: 20%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+        -webkit-align-items: center;
+}
+
+
+/* =========================================== */
+/* ================== FIN ==================== */
+
 @media screen and (max-width: 990px) {
     .hero-headline {
         font-size: 4.7rem;
@@ -788,6 +854,12 @@ footer {
         text-align: center;
     }
 }
+@media screen and (max-width: 500px) {
+    .bground, 
+    .wrapper-modal-confirmation{
+        background-color: transparent;
+    }
+}
 @media screen and (max-width: 400px) {
     .hero-content {
         max-width: 330px;
@@ -796,55 +868,3 @@ footer {
         width: 369px;
     }
 }
-/* =========================================== */
-/* ========= MODAL VALIDATION ENVOIE ========= */
-/* =========================================== */
-
-.wrapper-modal-confirmation {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    overflow: auto;
-    background-color: rgba(26, 39, 156, 0.4);
-}
-
-.wrapper-modal-confirmation-content {
-    margin: 15% auto;
-    width: 100%;
-    height: 500px;
-    max-width: 500px;
-    -webkit-animation-name: modalopen;
-    animation-name: modalopen;
-    -webkit-animation-duration: var(--modal-duration);
-    animation-duration: var(--modal-duration);
-    background: var(--bg-black-primary);
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-    color: var(--color-white);
-    padding-top: 10px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    display: -webkit-flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-}
-
-#modalConfirmation {
-    color: var(--color-white);
-    text-align: center;
-}
-
-/* =========================================== */
-/* ================== FIN ==================== */
-/* =========================================== */

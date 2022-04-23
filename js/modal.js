@@ -54,17 +54,24 @@ const btnMessageValidation = ".closeMsgValidation";
 closeModal(modalInscription, btnInscriptionClose); // FERMETURE DE LA MODAL INSCRIPTION
 closeModal(messageValidation, btnMessageValidation); // FERMETURE DE LA MODAL MESSAGE VALIDATION
 
+// Function pour fermer la modal du message de validation d'envoi
+document.getElementById('buttonValidationClose').addEventListener('click', closModalValidation);
+function closModalValidation(){
+  let modalClose = document.querySelector(messageValidation);
+  modalClose.style.display = 'none';
+  localStorage.clear();
+}
+
 //=============================================
 // ======== Control du formulaire =============
 //=============================================
 // On ecoute les entrees dans l'input FIRST
 document.getElementById('first').addEventListener("input", function (e) {
-  let valuePrenom = e.target.value;
-  validFirst(valuePrenom);
+  validFirst();
 });
 // fonction pour verifier le formulaire FIRST
-function validFirst(elt) {
-
+function validFirst() {
+  const elt = document.forms["reserve"]['first'].value;
   let regex = /^[a-zA-Z-\s]{2,}$/;
   let errorPrenom = false;
 
@@ -93,11 +100,11 @@ function validFirst(elt) {
 //=======================================
 // On ecoute les entrees dans l'input LAST
 document.getElementById('last').addEventListener("input", function (e) {
-  let valueNom = e.target.value;
-  validLast(valueNom);
+  validLast();
 });
 // fonction pour verifier le formulaire LAST
-function validLast(elt) {
+function validLast() {
+  let elt = document.forms["reserve"]['last'].value;
   let regexName = /^[a-zA-Z-\s]{2,}$/;
   let errorName = false;
 
@@ -123,11 +130,11 @@ function validLast(elt) {
 //=======================================
 // On ecoute les entrees dans l'input Email
 document.getElementById('email').addEventListener("input", function (e) {
-  let valueEmail = e.target.value;
-  validEmail(valueEmail);
+  validEmail();
 });
 // fonction pour verifier le formulaire Email
-function validEmail(elt) {
+function validEmail() {
+  let elt = document.forms["reserve"]['email'].value;;
   let regexEmail = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   let errorEmail = false;
   let errorInputBorder = document.getElementById("email");
@@ -153,11 +160,11 @@ function validEmail(elt) {
 //=======================================
 // On ecoute les entrées dans l'input DATE
 document.getElementById('birthdate').addEventListener("input", function (e) {
-  let valueDate = e.target.value;
-  validDate(valueDate);
+  validDate();
 });
 // fonction pour verifier le formulaire DATE
-function validDate(elt) {
+function validDate() {
+  let elt = document.forms["reserve"]['birthdate'].value;
   let regexDate = /^[0-9]{4}([\-/ \.])[0-9]{2}[\-/ \.][0-9]{2}$/;
   let errorDate = false;
   let msgError = document.getElementById("erreurBirthdate");
@@ -182,12 +189,12 @@ function validDate(elt) {
 //=======================================
 // On ecoute les entrees dans l'input QUANTITY
 document.getElementById("quantity").addEventListener("input", function (e) {
-  let valueQuantity = e.target.value;
-  validQuantity(valueQuantity);
+  validQuantity();
 });
 
 // fonction pour verifier le formulaire QUANTITY
-function validQuantity(elt) {
+function validQuantity() {
+  let elt = document.forms["reserve"]['quantity'].value;
   let errorQuantity = false;
   let regexQuantity = /^[0-9]{1,}$/;
   let msgError = document.getElementById("erreurQuantity");
@@ -208,12 +215,12 @@ function validQuantity(elt) {
 //=======================================
 // On ecoute les entrees dans l'input CGU
 document.getElementById("checkbox1").addEventListener("input", function (e) {
-  let checkedCgu = this.checked;
-  validCgu(checkedCgu);
+  validCgu();
 });
 
 // fonction pour verifier le formulaire CGU
-function validCgu(elt) {
+function validCgu() {
+  let elt = document.forms["reserve"]['checkbox1'].checked;
   let errorCgu = false;
   let msgError = document.getElementById("spanErrorCheckCgu");
 
@@ -228,7 +235,8 @@ function validCgu(elt) {
 }
 
 // Fonction pour la verification de la selection de la ville du tournoi inputs radio
-function validCheckRadioLocation(elt) {
+function validCheckRadioLocation() {
+  let elt = document.forms["reserve"]['location'].value;
   let errorLocation = false;
   let msgError = document.getElementById("spanErrorLocation");
   if (!elt) {
@@ -258,24 +266,15 @@ function afficheMessage() {
 // J'ecoute l'evenement submit et je relance les fonction a l'intèrieur.
 //======================================================================
 document.forms["formValid"].addEventListener("submit", function (e) {
-  let valueFirst = document.forms["reserve"]['first'].value;
-  let valueLast = document.forms["reserve"]['last'].value;
-  let valueEmail = document.forms["reserve"]['email'].value;
-  let valueBirthdate = document.forms["reserve"]['birthdate'].value;
-  let valueQuantity = document.forms["reserve"]['quantity'].value;
-  let valueLocation = document.forms["reserve"]['location'].value;
-  let valueCgu = document.forms["reserve"]['checkbox1'].checked;
 
 
-  let errorSubmitValidation =
-    validFirst(valueFirst)
-    && validLast(valueLast)
-    && validLast(valueLast)
-    && validEmail(valueEmail)
-    && validDate(valueBirthdate)
-    && validQuantity(valueQuantity)
-    && validCheckRadioLocation(valueLocation)
-    && validCgu(valueCgu);
+  let errorSubmitValidation = validFirst();
+    errorSubmitValidation = validLast() && errorSubmitValidation;
+    errorSubmitValidation = validEmail() && errorSubmitValidation;
+    errorSubmitValidation = validDate() && errorSubmitValidation;
+    errorSubmitValidation = validQuantity() && errorSubmitValidation;
+    errorSubmitValidation = validCheckRadioLocation() && errorSubmitValidation;
+    errorSubmitValidation = validCgu() && errorSubmitValidation;
 
   if (errorSubmitValidation == false) {
     e.preventDefault();
