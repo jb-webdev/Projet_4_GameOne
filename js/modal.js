@@ -217,8 +217,8 @@ function validQuantity() {
 document.getElementById("checkbox1").addEventListener("input", function (e) {
   validCgu();
 });
-
 // fonction pour verifier le formulaire CGU
+
 function validCgu() {
   let elt = document.forms["reserve"]['checkbox1'].checked;
   let errorCgu = false;
@@ -233,8 +233,25 @@ function validCgu() {
   }
   return errorCgu;
 }
+// Fonctions pour la verification de la selection de la ville du tournoi inputs radio
+const radioButtons = document.querySelectorAll('input[name="location"]');
 
-// Fonction pour la verification de la selection de la ville du tournoi inputs radio
+for(const radioButton of radioButtons){
+  radioButton.addEventListener('input', showSelected);
+}
+function showSelected(){
+  let errorLocation = false;
+  let msgError = document.getElementById("spanErrorLocation");
+  if(!this.value){
+    msgError.innerText = "Vous devez selectionner obligatoirement une ville";
+    errorLocation = false;
+  } else {
+    msgError.innerText = "";
+    errorLocation = true
+  }
+  return errorLocation;
+}
+
 function validCheckRadioLocation() {
   let elt = document.forms["reserve"]['location'].value;
   let errorLocation = false;
@@ -248,7 +265,6 @@ function validCheckRadioLocation() {
   }
   return errorLocation;
 }
-
 // Je creer un fonction qui stock une valeur non sensible dans le localstorage.
 function storageEtat() {
   return localStorage.setItem("etatMessage", true);
