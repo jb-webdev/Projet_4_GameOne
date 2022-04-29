@@ -1,4 +1,15 @@
-// Script fourni par OC pour le début du projet 
+// DOM Elements
+const modalbg = document.querySelector(".bground");
+const modalBtn = document.querySelectorAll(".modal-btn");
+const formData = document.querySelectorAll(".formData");
+
+// je declare des variables .
+// PARAMS Modal Inscription
+const modalInscription = ".bground";
+const btnInscriptionClose = ".close";
+// PARAMS Modal message validation
+const messageValidation = ".wrapper-modal-confirmation";
+const btnMessageValidation = ".closeMsgValidation";
 
 function editNav() {
   var x = document.getElementById("myTopnav");
@@ -13,10 +24,7 @@ btnClickMenu.addEventListener('click', function() {
   editNav();
 });
 
-// DOM Elements
-const modalbg = document.querySelector(".bground");
-const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
+
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -41,18 +49,11 @@ function closeModal(m, b){
     }
   btnListener.addEventListener("click", closeModal);    
 }
-// je declare des variables .
-// PARAMS Modal Inscription
 
-const modalInscription = ".bground";
-const btnInscriptionClose = ".close";
-// PARAMS Modal message validation
-const messageValidation = ".wrapper-modal-confirmation";
-const btnMessageValidation = ".closeMsgValidation";
-
-
-closeModal(modalInscription, btnInscriptionClose); // FERMETURE DE LA MODAL INSCRIPTION
-closeModal(messageValidation, btnMessageValidation); // FERMETURE DE LA MODAL MESSAGE VALIDATION
+// FERMETURE DE LA MODAL INSCRIPTION
+closeModal(modalInscription, btnInscriptionClose);
+// FERMETURE DE LA MODAL MESSAGE VALIDATION 
+closeModal(messageValidation, btnMessageValidation); 
 
 // Function pour fermer la modal du message de validation d'envoi
 document.getElementById('buttonValidationClose').addEventListener('click', closModalValidation);
@@ -218,7 +219,6 @@ document.getElementById("checkbox1").addEventListener("input", function (e) {
   validCgu();
 });
 // fonction pour verifier le formulaire CGU
-
 function validCgu() {
   let elt = document.forms["reserve"]['checkbox1'].checked;
   let errorCgu = false;
